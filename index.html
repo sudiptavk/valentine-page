@@ -2,21 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- Make sure the site is mobile-friendly -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Will You Be My Valentine?</title>
   <style>
+    /* Set font to Times New Roman and basic styling */
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Times New Roman", serif;
       text-align: center;
       background-color: #fff0f6;
       margin: 0;
       padding: 0;
     }
     h1 {
-      margin-top: 100px;
+      margin-top: 50px;
+      font-size: 2rem;
     }
-    #question, #result {
-      transition: opacity 0.5s ease;
+    .button-container {
+      margin-top: 30px;
     }
     button {
       font-size: 1.2rem;
@@ -28,62 +31,78 @@
       background-color: #ff69b4;
       color: white;
     }
-    .heart {
-      font-size: 2rem;
-      color: red;
-      margin: 0 5px;
-      animation: heartbeat 1s infinite;
+    /* Hide the result section by default */
+    #result {
+      display: none;
     }
-    @keyframes heartbeat {
-      0% { transform: scale(1); }
-      25% { transform: scale(1.2); }
-      50% { transform: scale(1); }
-      75% { transform: scale(1.2); }
-      100% { transform: scale(1); }
+    /* Dog Animation Container */
+    .dog-container {
+      margin-top: 20px;
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    .dog {
+      position: absolute;
+      bottom: 0;
+      width: 100px;
+      animation: run 5s linear infinite;
+    }
+    @keyframes run {
+      0% {
+        left: -120px;
+      }
+      50% {
+        left: calc(50% - 50px);
+        transform: scale(1.1);
+      }
+      100% {
+        left: 100%;
+      }
+    }
+    /* Media queries for smaller screens (like iPhones) */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      button {
+        font-size: 1rem;
+        padding: 8px 16px;
+      }
+      .dog {
+        width: 80px;
+      }
     }
   </style>
 </head>
 <body>
   <!-- Question Section -->
-  <div id="question">
-    <h1>Will you be my Valentine?</h1>
+  <h1>Will you be my Valentine?</h1>
+  <div class="button-container">
     <button id="yes">Yes</button>
     <button id="no">No</button>
   </div>
 
-  <!-- Result Section (hidden by default) -->
-  <div id="result" style="display:none;">
+  <!-- Result Section (hidden until a button is clicked) -->
+  <div id="result">
     <h1>Congratulations, you have secured yourself a date with Sudipta!</h1>
-    <div id="hearts"></div>
+    <div class="dog-container">
+      <!-- Cute dog animation (feel free to swap the URL with your favorite animated dog GIF) -->
+      <img src="https://media.giphy.com/media/10dU7AN7xsi1I4/giphy.gif" alt="Cute Dog Animation" class="dog">
+    </div>
   </div>
 
   <script>
-    // Attach click listeners to both buttons.
-    document.getElementById("yes").addEventListener("click", function() {
-      showResult(true);
-    });
-    document.getElementById("no").addEventListener("click", function() {
-      showResult(false);
-    });
+    // When either button is clicked, hide the question and show the result.
+    document.getElementById("yes").addEventListener("click", showResult);
+    document.getElementById("no").addEventListener("click", showResult);
 
-    // This function hides the question and shows the result.
-    // If the user clicked "Yes", we add a bunch of hearts.
-    function showResult(isYes) {
-      document.getElementById("question").style.display = "none";
+    function showResult() {
+      // Hide the question and buttons.
+      document.querySelector("h1").style.display = "none";
+      document.querySelector(".button-container").style.display = "none";
+      // Show the result section.
       document.getElementById("result").style.display = "block";
-      
-      // If the visitor clicked "Yes", add hearts.
-      // (If you’d prefer the same decoration for both buttons, remove the if-check.)
-      if (isYes) {
-        const heartsContainer = document.getElementById("hearts");
-        // Create several heart elements.
-        for (let i = 0; i < 20; i++) {
-          let heartSpan = document.createElement("span");
-          heartSpan.classList.add("heart");
-          heartSpan.textContent = "❤️";
-          heartsContainer.appendChild(heartSpan);
-        }
-      }
     }
   </script>
 </body>
