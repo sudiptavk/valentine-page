@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Be My Valentine?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #fff0f6;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      margin-top: 100px;
+    }
+    #question, #result {
+      transition: opacity 0.5s ease;
+    }
+    button {
+      font-size: 1.2rem;
+      margin: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff69b4;
+      color: white;
+    }
+    .heart {
+      font-size: 2rem;
+      color: red;
+      margin: 0 5px;
+      animation: heartbeat 1s infinite;
+    }
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.2); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Question Section -->
+  <div id="question">
+    <h1>Will you be my Valentine?</h1>
+    <button id="yes">Yes</button>
+    <button id="no">No</button>
+  </div>
+
+  <!-- Result Section (hidden by default) -->
+  <div id="result" style="display:none;">
+    <h1>Congratulations, you have secured yourself a date with Sudipta!</h1>
+    <div id="hearts"></div>
+  </div>
+
+  <script>
+    // Attach click listeners to both buttons.
+    document.getElementById("yes").addEventListener("click", function() {
+      showResult(true);
+    });
+    document.getElementById("no").addEventListener("click", function() {
+      showResult(false);
+    });
+
+    // This function hides the question and shows the result.
+    // If the user clicked "Yes", we add a bunch of hearts.
+    function showResult(isYes) {
+      document.getElementById("question").style.display = "none";
+      document.getElementById("result").style.display = "block";
+      
+      // If the visitor clicked "Yes", add hearts.
+      // (If you’d prefer the same decoration for both buttons, remove the if-check.)
+      if (isYes) {
+        const heartsContainer = document.getElementById("hearts");
+        // Create several heart elements.
+        for (let i = 0; i < 20; i++) {
+          let heartSpan = document.createElement("span");
+          heartSpan.classList.add("heart");
+          heartSpan.textContent = "❤️";
+          heartsContainer.appendChild(heartSpan);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
